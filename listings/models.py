@@ -74,3 +74,44 @@ class BookingInfo(models.Model):
             obj = self.hotel_room_type
             
         return f'{obj} {self.price}'
+
+
+class Reservation(models.Model):
+    booking_info = models.ForeignKey(
+        BookingInfo,
+        on_delete=models.CASCADE,
+        related_name='reservation_info'
+    )
+    hotel_room = models.ForeignKey(
+        HotelRoom,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='room_reservation_info')
+    date_reserved = models.DateField()
+
+    def __str__(self):
+        if self.hotel_room:
+            return f'Room {self.hotel_room} ({self.booking_info}) reserved for {self.date_reserved}'
+        else:
+            return f'{self.booking_info} reserved for {self.date_reserved}'
+
+# class Reservation(models.Model):
+#     listing = models.ForeignKey(
+#         Listing,
+#         on_delete=models.CASCADE,
+#         related_name='reservation_info'
+#     )
+#     hotel_room = models.ForeignKey(
+#         HotelRoom,
+#         blank=True,
+#         null=True,
+#         on_delete=models.CASCADE,
+#         related_name='room_reservation_info')
+#     date_reserved = models.DateField()
+
+#     def __str__(self):
+#         if self.hotel_room:
+#             return f'Room {self.hotel_room} ({self.listing}) reserved for {self.date_reserved}'
+#         else:
+#             return f'{self.listing} reserved for {self.date_reserved}'

@@ -1,7 +1,10 @@
 from django.contrib import admin
 
-from .models import Listing, HotelRoomType, HotelRoom, BookingInfo
+from .models import (
+    Listing, HotelRoomType, HotelRoom, BookingInfo, Reservation
+    )
 
+admin.site.register(Reservation)
 
 class HotelRoomTypeInline(admin.StackedInline):
     model = HotelRoomType
