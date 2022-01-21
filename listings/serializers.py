@@ -7,7 +7,6 @@ class ListingSerializer(serializers.ModelSerializer):
 		fields = ['listing_type', 'title', 'city', 'country']
 
 class BookingInfoSerializer(serializers.ModelSerializer):
-	# listing = serializers.StringRelatedField(read_only=True)
 	listing = ListingSerializer(read_only=True)
 	class Meta:
 		model = BookingInfo
