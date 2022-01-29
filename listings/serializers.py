@@ -8,6 +8,9 @@ class ListingSerializer(serializers.ModelSerializer):
 
 class BookingInfoSerializer(serializers.ModelSerializer):
 	listing = ListingSerializer(read_only=True)
+	hotel_room_type = serializers.ReadOnlyField(source='hotel_room_type.title')
 	class Meta:
 		model = BookingInfo
-		fields = ['listing', 'price']
+		fields = ['listing', 'hotel_room_type', 'price']
+
+

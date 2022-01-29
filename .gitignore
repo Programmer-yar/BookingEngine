@@ -91,3 +91,4 @@ dmypy.json
 .vscode/
 
 *.sqlite3
+next-steps.txt

@@ -1,12 +1,10 @@
 from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from .views import ListingsFilter
+from .views import ListingsFilter, AllListings
 
 urlpatterns = [
+	# 'api/v1/available-listings/<int:max_price>/<str:check_in>/<str:check_out>',
 	path(
-		'available-listings/api/v1/<int:max_price>/<str:check_in>/<str:check_out>',
-		ListingsFilter.as_view(), name='available-listings'
-		),
+		'api/v1/available-listings', ListingsFilter.as_view(),
+		name='available-listings'),
+	path('api/v1/all-listings', AllListings.as_view(), name= 'all-listings'),
 	]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

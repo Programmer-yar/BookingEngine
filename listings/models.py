@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Listing(models.Model):
@@ -89,6 +90,7 @@ class Reservation(models.Model):
         on_delete=models.CASCADE,
         related_name='room_reservation_info'
         )
+    booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date_reserved = models.DateField()
 
     def __str__(self):

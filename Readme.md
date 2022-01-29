@@ -1,5 +1,4 @@
 # Django & Django REST framework test project.
-The test project won't be used in any real environment.
 
 
 ## Summary:
