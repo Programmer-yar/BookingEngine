@@ -3,12 +3,13 @@ from .models import Listing, BookingInfo, HotelRoom, HotelRoomType
 
 def check_listings_availability(max_price, check_in, check_out):
     """ Provides a list of available hotel rooms/ apartments based on
-    check_in, check_out dates
+    check_in, check_out dates and max price filter
     """
     price_apartment_filter = BookingInfo.objects.filter(
         price__lt=max_price, listing__listing_type='apartment').exclude(
             reservation_info__date_reserved__range=(check_in, check_out))
-    available_rooms = HotelRoom.objects.exclude(room_reservation_info__date_reserved__range=(check_in, check_out))
+    available_rooms = HotelRoom.objects.exclude(
+        room_reservation_info__date_reserved__range=(check_in, check_out))
     room_types = HotelRoomType.objects.filter(
                     hotel_rooms__in=available_rooms)
     hotels_info = BookingInfo.objects.filter(

@@ -31,26 +31,32 @@ Extend Django Project with Django REST Framework for a simple prebuild booking a
 
 
 ## Initial Project setup
-    git clone https://bitbucket.org/staykeepersdev/bookingengine.git
+    git clone https://github.com/Programmer-yar/BookingEngine.git
     python -m venv venv
     pip install -r requirements.txt
-    python manage.py runserver
+    python manage.py runserver 
 
+## Endpoints:
+- api/v1/available-listings/
+    GET
+  - accepts maximum price & check In, check Out dates
+  - provides list of all available listings according to above filters
 
-## Test Case example:
+- api/v1/booking
+    GET
+    - Shows all bookings made the user
+    POST
+    - Make new bookings
+    - posted data must include:
+        - listing_id, check_in for apartments
+        - listing_id, check_in, room_type and room_number
 
-For covering more test cases we are going to need at least one hotel with 3 Hotel Room Types:
-
-- First with price=50 (below max_price) with blocked day inside the search criteria for all rooms(could be 1 room)
-
-- Second with price=60 (below max_price) with blocked day insde the search criteria for one out of few rooms
-
-- Third with price 200 (above max_price) 
 
 
 ## Request example:
 
-http://localhost:8000/api/v1/units/?max_price=100&check_in=2021-12-09&check_out=2021-12-12
+http://localhost:8000/api/v1/available-listings/?max_price=100&check_in=2021-12-09&check_out=2021-12-12
+
 
 
 ## Response example:

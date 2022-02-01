@@ -7,7 +7,7 @@ from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import Http404
+from rest_framework import permissions
 
 from .models import (Listing, BookingInfo, HotelRoom, HotelRoomType,
                      Reservation)
@@ -52,7 +52,7 @@ class ListingsFilter(mixins.ListModelMixin, generics.GenericAPIView):
         return available_listings
 
 class Booking(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, format=format):
         reservations = Reservation.objects.filter(booked_by=self.request.user)
         serializer = ReservationSerializer(reservations, many=True)
@@ -65,10 +65,11 @@ class Booking(APIView):
         room_number = request.data.get('room_number')
         check_in = request.data.get('check_in')
         check_out = request.data.get('check_out', check_in)
+
         listing = get_object_or_404(Listing, pk=listing_id)
         available, room = check_specific_listing(
             listing, check_in, check_out, room_number, room_type)
-        print(available)
+        
         if available:
             booking_days = date_range(check_in, check_out)
             book_info = BookingInfo.objects.filter(listing=listing)[0]
